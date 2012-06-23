@@ -1,0 +1,13 @@
+#days-container {
+    border: 4px inset blue; /* Параметры границы */
+    padding: 10px; /* Поля вокруг текста */
+}
+
+.day {
+    display: inline;
+}
+
+ul {
+    list-style: none;
+}
+
