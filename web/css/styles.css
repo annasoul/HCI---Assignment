@@ -1,0 +1,153 @@
+#matrix-arrow-left-right {
+    width: 13em;
+    margin: 1em 1em 0.5em 1em;
+}
+
+#matrix-arrow-top-bittom {
+    height: 13em;
+    margin: 1em 1em 0.5em 1em;
+}
+
+#arrow-left, #line-left-right, #arrow-right {
+    float: left;
+}
+
+#arrow-top, #line-top-bottom, #arrow-bottom{
+    float: left;
+}
+
+.break-float {
+    clear: both;
+}
+
+#line-left-right {
+    width: 90%;
+    margin-top: 5px;
+    height: 1px;
+    background-color: black;
+}
+
+#line-top-bottom {
+    width: 1px;
+    background-color: black;
+    height: 200px;
+    float: left;
+    margin-top:5px;
+    margin-left: -5px;
+}
+
+#arrow-top {
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    border-bottom:5px solid black;
+    width:0;
+    float: left;
+}
+
+#arrow-bottom {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-top: 5px solid black;
+    border-right: 5px solid transparent;
+    margin-top: 205px;
+    margin-left: -10px;
+}
+
+#matrix {
+    clear: both;
+}
+
+#arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid black;
+}
+
+#arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid black;
+    margin-top: 1px;
+}
+
+table {
+    width: 15em;
+    height: 15em;
+}
+
+#left, #days-container {
+    height: 100%;
+    width: 50%;
+    float: left
+}
+
+#days-container {
+    border: 4px inset blue;
+    padding: 10px;
+    width: 45%;
+    height: 100%;
+    float: right;
+}
+
+#someday {
+    border: 4px outset #dcdcdc;
+    padding: 10px;
+    width: 100%;
+    float: left;
+    clear: both;
+}
+
+.day {
+    display: inline-block;
+    width: 45%;
+    padding: 1px;
+    float: inherit; /*days are not moved*/
+}
+
+.task {
+    width: 80%;
+    border-bottom:dotted #949494 thin
+}
+
+#matrix-now {
+    background-color: red;
+}
+
+#matrix-decide-later {
+    background-color: yellow;
+}
+
+#matrix-delegate {
+    background-color: orange;
+}
+
+#matrix-dump {
+    background-color: green;
+}
+
+#someday-todo-text{
+    width: 50%
+}
+
+.input{
+    width: 50%
+}
+
+.week-day, .date {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.week-day {
+    font-size: 2em;
+}
+
+.date {
+    font-size: 1em;
+    font-style: italic;
+}
