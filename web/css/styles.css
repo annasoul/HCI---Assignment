@@ -1,3 +1,7 @@
+html, body {
+    height: 97%;
+}
+
 #matrix-arrow-left-right {
     width: 13em;
     margin: 1em 1em 0.5em 1em;
@@ -98,6 +102,7 @@ table {
     border: 4px outset #dcdcdc;
     padding: 10px;
     width: 100%;
+    min-height: 50%;
     float: left;
     clear: both;
 }
@@ -105,12 +110,14 @@ table {
 .day {
     display: inline-block;
     width: 45%;
+    min-height: 90%;
     padding: 1px;
     float: inherit; /*days are not moved*/
 }
 
 .task {
     width: 80%;
+    min-height: 1.4em;
     border-bottom:dotted #949494 thin
 }
 
@@ -148,6 +155,10 @@ table {
 }
 
 .date {
-    font-size: 1em;
+    font-size: 0.7em;
     font-style: italic;
+}
+
+.day-header img, .day-header-text-container {
+    float: left;
 }

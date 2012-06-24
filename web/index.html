@@ -3,10 +3,19 @@
 <html>
 <head>
     <title>To-Do List for You</title>
+
+    <link rel="stylesheet" type="text/css" href="JSCal2/css/jscal2.css" />
+    <link rel="stylesheet" type="text/css" href="JSCal2/css/border-radius.css" />
+    <link rel="stylesheet" type="text/css" href="JSCal2/css/gold/gold.css" />
+    <script type="text/javascript" src="JSCal2/js/jscal2.js"></script>
+    <script type="text/javascript" src="JSCal2/js/lang/en.js"></script>
+
     <link href="css/styles.css" rel="stylesheet" type="text/css"/>
-    <script src="js/todolistactions.js" type="text/javascript"></script>
+    <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="js/actions.js" type="text/javascript"></script>
 </head>
-<body onload="init()">
+
+<body>
 
 <div id="left">
     <div id="matrix-arrow-left-right">
@@ -45,22 +54,32 @@
 
 <div id="days-container">
     <div class="day">
-        <div class="date-container">
-            <div class="week-day">Saturday</div>
-            <div class="date">JUNE 23, 2012</div>
+        <div class="day-header">
+            <div class="day-header-text-container">
+                <div class="week-day">Saturday</div>
+                <div class="date">JUNE 23, 2012</div>
+            </div>
+            <input id="input-calendar1" type="hidden"/>
+            <input id="img-calendar1" type="image" src="img/calendar.png"/>
+            <!--<input id="img-calendar1" type="button">-->
+            <!--<img id="img-calendar1" src="img/calendar.png"/>-->
+            <div class="break-float"></div>
+            <div class="calendar"></div>
         </div>
-        <div class="calendar"></div>
         <input maxlength="140" type="text">
 
         <div class="list">
         </div>
     </div>
     <div class="day">
-        <div class="date-container">
-            <div class="week-day">Sunday</div>
-            <div class="date">JUNE 24, 2012</div>
+        <div class="day-header">
+            <div class="day-header-text-container">
+                <div class="week-day">Sunday</div>
+                <div class="date">JUNE 24, 2012</div>
+            </div>
+            <img id="img-calendar2" src="img/calendar.png"/>
+            <div class="break-float"></div>
         </div>
-        <div class="calendar"></div>
         <input maxlength="140" type="text">
 
         <div class="list">
