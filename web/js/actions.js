@@ -1,10 +1,11 @@
 $(document).ready(function () {
     initTasks();
     initCalendar();
+    initDates();
 });
 
 function initTasks() {
-    $('#days-container div.day').each(function (i) {
+    $('div.day').each(function (i) {
         var textField = $('input', this);
         var list = $('div.list', this);
 
@@ -15,6 +16,8 @@ function initTasks() {
 
         // Setup typing handler.
         textField.bind('keypress', function (e) {
+            var innerHtml = '<input type="checkbox">' + textField.val() +'<br>';
+
             if (e.keyCode == 13 && textField.val() != '') {
                 var added = false;
                 var tasks = $('div.task', list).each(function () {
@@ -22,13 +25,13 @@ function initTasks() {
                         return;
                     }
                     if (this.innerHTML == '') {
-                        this.innerHTML = textField.val();
+                        this.innerHTML = innerHtml;
                         added = true;
                     }
                 });
 
                 if (!added) {
-                    $('<div class="task">' + textField.val() + '</div>').appendTo(list);
+                    $('<div class="task">' + innerHtml + '</div>').appendTo(list);
                 }
 
                 //clear text field
@@ -38,10 +41,10 @@ function initTasks() {
     })
 }
 
-function initCalendar() {
-    Calendar.setup({
-        trigger    : "img-calendar1",
-        inputField : "input-calendar1",
-        bottomBar: false
-    });
+function initDates() {
+
 }
+
+function initCalendar() {
+}
+

@@ -91,7 +91,7 @@ table {
 }
 
 #days-container {
-    border: 4px inset blue;
+    border: 4px inset #808080;
     padding: 10px;
     width: 45%;
     height: 100%;
@@ -99,12 +99,26 @@ table {
 }
 
 #someday {
-    border: 4px outset #dcdcdc;
+    border: 4px outset #808080;
     padding: 10px;
     width: 100%;
-    min-height: 50%;
+    margin-top: 10%;
+    min-height: 55.8%;
     float: left;
     clear: both;
+    font-family: sans-serif;
+    font-weight: bolder;
+}
+
+#someday-list{
+    font-family: sans-serif;
+    font-weight: normal;
+}
+
+.title{
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-style: italic;
 }
 
 .day {
