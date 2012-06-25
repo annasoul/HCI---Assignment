@@ -9,9 +9,23 @@ function initTasks() {
         var textField = $('input', this);
         var list = $('div.list', this);
 
+        // Configure drop targets.
+        $('div.list').each(function (i, list) {
+            $(list).droppable({
+                accept: 'div.task',
+                drop: function(event, ui) {
+                    if (true) {
+                        $('.ui-draggable-dragging').hide();
+                    }
+                }
+            })
+        });
+
         // Add empty cells.
         for (var j = 0; j < 10; j++) {
-            $('<div class="task"></div>').appendTo(list);
+            var task = $('<div class="task"></div>');
+            task.draggable({ revert: "invalid" });
+            task.appendTo(list);
         }
 
         // Setup typing handler.
