@@ -104,7 +104,11 @@ function initTasks() {
 }
 
 function initDates() {
+    var tomorrow = Date.today().add(1).days();
+    var format = 'MMMM dd, yyyy';
 
+    $('#today-date')[0].innerHTML = Date.today().toString(format);
+    $('#tomorrow-date')[0].innerHTML = tomorrow.toString(format);
 }
 
 function initCalendar() {
