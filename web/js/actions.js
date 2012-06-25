@@ -109,6 +109,7 @@ function initDates() {
 
     $('#today-date')[0].innerHTML = Date.today().toString(format);
     $('#tomorrow-date')[0].innerHTML = tomorrow.toString(format);
+    $('#tomorrow-week-date')[0].innerHTML = tomorrow.toString('dddd');
 }
 
 function initCalendar() {
