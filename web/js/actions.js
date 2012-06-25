@@ -7,19 +7,32 @@ $(document).ready(function () {
 
 function addTask(text, list) {
     var added = false;
-    var htmlToSet = '<input type="checkbox">' + text +'<br>';
-    var tasks = $('div.task', list).each(function () {
-        if (added) {
-            return;
-        }
-        if (this.innerHTML == '') {
-            this.innerHTML = htmlToSet;
-            added = true;
-        }
-    });
+    var htmlToSet = text ? '<input type="checkbox">' + text +'<br>' : '';
+    if (text) {
+        $('div.task', list).each(function () {
+            if (added) {
+                return;
+            }
+            if (this.innerHTML == '') {
+                this.innerHTML = htmlToSet;
+                added = true;
+            }
+        });
+    }
 
     if (!added) {
         $('<div class="task">' + htmlToSet + '</div>').appendTo(list);
+    }
+}
+
+function ensureTasksNumber(list) {
+    var minNumber = 10;
+    var toAdd = minNumber - $('div.task', list).length;
+    if (toAdd <= 0) {
+        return;
+    }
+    for (var i = 0; i < toAdd; i++) {
+        addTask('', list)
     }
 }
 
@@ -49,12 +62,18 @@ function initDragAndDrop() {
         list.droppable({
             accept: 'div.task:not(.' + listId + ')',
             drop: function(event, ui) {
-                var list = findList(event.target);
-                if (!list) {
+                var sourceList = findList(event.toElement);
+                var destinationList = findList(event.target);
+                if (!destinationList) {
                     return;
                 }
-                addTask($(event.toElement).text(), list);
+                addTask($(event.toElement).text(), destinationList);
                 $('.ui-draggable-dragging').hide();
+
+                $(event.toElement).remove();
+                if (sourceList) {
+                    ensureTasksNumber(sourceList);
+                }
             }
         });
     })
