@@ -80,8 +80,16 @@ html, body {
 }
 
 table {
-    width: 15em;
-    height: 15em;
+    width: 21em;
+    height: 21em;
+}
+
+td {
+    width: 10em;
+    height: 10em;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
 }
 
 #left, #days-container {
@@ -130,25 +138,26 @@ table {
 }
 
 .task {
+    font-family: serif;
     width: 80%;
     min-height: 1.4em;
-    border-bottom:dotted #949494 thin
+    border-bottom:dotted #949494 thin;
 }
 
 #matrix-now {
-    background-color: red;
+    background-color: #ff644b;
 }
 
 #matrix-decide-later {
-    background-color: yellow;
+    background-color: #f7b52b;
 }
 
 #matrix-delegate {
-    background-color: orange;
+    background-color: #ffe668;
 }
 
 #matrix-dump {
-    background-color: green;
+    background-color: #f4eed6;
 }
 
 #someday-todo-text{

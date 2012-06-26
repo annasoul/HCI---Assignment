@@ -40,6 +40,7 @@ function addTask(text, list) {
 
             if (this.innerHTML == '') {
                 checkBox.appendTo($(this));
+                $(this).draggable("option", "disabled", false);
                 added = true;
             }
         });
@@ -51,6 +52,9 @@ function addTask(text, list) {
         task.draggable({ revert: "invalid" });
         if (checkBox) {
             checkBox.appendTo(task);
+        }
+        else {
+            task.draggable("option", "disabled", true);
         }
         task.appendTo($(list));
     }
