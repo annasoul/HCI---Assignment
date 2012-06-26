@@ -1,0 +1,37 @@
+#stones {
+    float: right;
+    width: 30%;
+    min-height: 97%;
+}
+
+#features, #to-do-for-you-description, #coming-soon {
+    font-family: cursive;
+    font-weight: bold;
+    color: #050886;
+}
+
+#to-do-for-you-description {
+    font-size: 5em;
+    position: relative;
+    top: 1em;
+    left: 1em;
+}
+
+#features, #coming-soon {
+    font-size: 2em;
+    position: relative;
+}
+
+li {
+    font-size: 0.6em;
+}
+
+#features {
+    top: 3em;
+    left: 3em;
+}
+
+#coming-soon {
+    top: 2em;
+    left: 12em;
+}

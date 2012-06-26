@@ -94,14 +94,14 @@ td {
 
 #left, #days-container {
     height: 100%;
-    width: 50%;
+    width: 40%;
     float: left
 }
 
 #days-container {
     border: 4px inset #808080;
     padding: 10px;
-    width: 45%;
+    width: 55%;
     height: 100%;
     float: right;
 }
@@ -111,7 +111,7 @@ td {
     padding: 10px;
     width: 100%;
     margin-top: 10%;
-    min-height: 43.4%;
+    min-height: 40%;
     float: left;
     clear: both;
     font-family: sans-serif;
