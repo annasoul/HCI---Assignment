@@ -1,6 +1,7 @@
 $(document).ready(function () {
     initTasks();
-    initDragAndDrop();
+    initDayDragAndDrop();
+    initPriorityDragAndDrop();
     initCalendar();
     initDates();
 });
@@ -71,7 +72,7 @@ function ensureTasksNumber(list) {
     }
 }
 
-function initDragAndDrop() {
+function initDayDragAndDrop() {
     var findList = function(startChild) {
         for (var e = startChild; e; e = e.parentElement) {
             if ($(e).hasClass('list')) {
@@ -85,10 +86,7 @@ function initDragAndDrop() {
         var list = $(this);
         var listId = parseListId(this);
         list.droppable({
-            accept: function(drop) {
-                return true;
-            },
-//            accept: 'div.task:not(.' + listId + ')',
+            accept: 'div.task:not(.' + listId + ')',
             drop: function(event, ui) {
                 var sourceList = findList(ui.draggable[0]);
                 var destinationList = findList(event.target);
@@ -105,6 +103,31 @@ function initDragAndDrop() {
             }
         });
     })
+}
+
+function initPriorityDragAndDrop() {
+//    $('#matrix').droppable({
+//        drop: function(event, ui) {
+//            console.log('drop complete');
+//        }
+//    });
+    $('td').each(function (i) {
+        var cell = $(this);
+        cell.droppable({
+            tolerance: 'pointer',
+//            accept: function(drop) {
+//                return true;
+//            },
+            accept: 'div.task',
+            drop: function(event, ui) {
+                var task = ui.draggable;
+                task.css('background-color', cell.css('background-color'));
+                task.css('left', '');
+                task.css('top', '');
+//                $('.ui-draggable-dragging').hide();
+            }
+        })
+    });
 }
 
 function initTasks() {
