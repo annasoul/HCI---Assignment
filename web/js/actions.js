@@ -16,7 +16,7 @@ function parseListId(e) {
     return null;
 }
 
-function addTask(text, list) {
+function addTask(text, list, backgroundColor) {
     var createDataControl = function(text) {
         var checkBox = $('<input type="checkbox">' + text +'<br>');
         checkBox.click(function(e) {
@@ -42,6 +42,9 @@ function addTask(text, list) {
             if (this.innerHTML == '') {
                 checkBox.appendTo($(this));
                 $(this).draggable("option", "disabled", false);
+                if (backgroundColor) {
+                    $(this).css('background-color', backgroundColor);
+                }
                 added = true;
             }
         });
@@ -53,6 +56,7 @@ function addTask(text, list) {
         task.draggable({ revert: "invalid" });
         if (checkBox) {
             checkBox.appendTo(task);
+            task.css('background-color', backgroundColor);
         }
         else {
             task.draggable("option", "disabled", true);
@@ -93,7 +97,7 @@ function initDayDragAndDrop() {
                 if (!destinationList) {
                     return;
                 }
-                addTask(ui.draggable.text(), destinationList);
+                addTask(ui.draggable.text(), destinationList, ui.draggable.css('background-color'));
                 $('.ui-draggable-dragging').hide();
 
                 ui.draggable.remove();
@@ -106,25 +110,16 @@ function initDayDragAndDrop() {
 }
 
 function initPriorityDragAndDrop() {
-//    $('#matrix').droppable({
-//        drop: function(event, ui) {
-//            console.log('drop complete');
-//        }
-//    });
     $('td').each(function (i) {
         var cell = $(this);
         cell.droppable({
             tolerance: 'pointer',
-//            accept: function(drop) {
-//                return true;
-//            },
             accept: 'div.task',
             drop: function(event, ui) {
                 var task = ui.draggable;
                 task.css('background-color', cell.css('background-color'));
                 task.css('left', '');
                 task.css('top', '');
-//                $('.ui-draggable-dragging').hide();
             }
         })
     });
