@@ -176,3 +176,7 @@ table {
 .day-header img, .day-header-text-container {
     float: left;
 }
+
+.task-completed {
+    text-decoration: line-through;
+}

@@ -16,24 +16,42 @@ function parseListId(e) {
 }
 
 function addTask(text, list) {
+    var createDataControl = function(text) {
+        var checkBox = $('<input type="checkbox">' + text +'<br>');
+        checkBox.click(function(e) {
+            var clazz = 'task-completed';
+            if (e.target.checked) {
+                $(e.target.parentElement).addClass(clazz);
+            }
+            else {
+                $(e.target.parentElement).removeClass(clazz);
+            }
+        });
+        return checkBox;
+    };
+
     var added = false;
-    var htmlToSet = text ? '<input type="checkbox">' + text +'<br>' : '';
+    var checkBox = text ? createDataControl(text) : null;
     if (text) {
         $('div.task', list).each(function () {
             if (added) {
                 return;
             }
+
             if (this.innerHTML == '') {
-                this.innerHTML = htmlToSet;
+                checkBox.appendTo($(this));
                 added = true;
             }
         });
     }
 
     if (!added) {
-        var task = $('<div class="task">' + htmlToSet + '</div>');
+        var task = $('<div class="task"></div>');
         task.addClass(parseListId(list));
         task.draggable({ revert: "invalid" });
+        if (checkBox) {
+            checkBox.appendTo(task);
+        }
         task.appendTo($(list));
     }
 }
@@ -63,17 +81,20 @@ function initDragAndDrop() {
         var list = $(this);
         var listId = parseListId(this);
         list.droppable({
-            accept: 'div.task:not(.' + listId + ')',
+            accept: function(drop) {
+                return true;
+            },
+//            accept: 'div.task:not(.' + listId + ')',
             drop: function(event, ui) {
-                var sourceList = findList(event.toElement);
+                var sourceList = findList(ui.draggable[0]);
                 var destinationList = findList(event.target);
                 if (!destinationList) {
                     return;
                 }
-                addTask($(event.toElement).text(), destinationList);
+                addTask(ui.draggable.text(), destinationList);
                 $('.ui-draggable-dragging').hide();
 
-                $(event.toElement).remove();
+                ui.draggable.remove();
                 if (sourceList) {
                     ensureTasksNumber(sourceList);
                 }
