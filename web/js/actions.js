@@ -5,6 +5,16 @@ $(document).ready(function () {
     initDates();
 });
 
+function parseListId(e) {
+    var classes = e.className.split(' ');
+    for (var i in classes) {
+        if (classes[i].indexOf('myListId') == 0) {
+            return classes[i]
+        }
+    }
+    return null;
+}
+
 function addTask(text, list) {
     var added = false;
     var htmlToSet = text ? '<input type="checkbox">' + text +'<br>' : '';
@@ -21,7 +31,10 @@ function addTask(text, list) {
     }
 
     if (!added) {
-        $('<div class="task">' + htmlToSet + '</div>').appendTo(list);
+        var task = $('<div class="task">' + htmlToSet + '</div>');
+        task.addClass(parseListId(list));
+        task.draggable({ revert: "invalid" });
+        task.appendTo($(list));
     }
 }
 
@@ -41,16 +54,6 @@ function initDragAndDrop() {
         for (var e = startChild; e; e = e.parentElement) {
             if ($(e).hasClass('list')) {
                 return e;
-            }
-        }
-        return null;
-    };
-
-    var parseListId = function(e) {
-        var classes = e.className.split(' ');
-        for (var i in classes) {
-            if (classes[i].indexOf('myListId') == 0) {
-                return classes[i]
             }
         }
         return null;
@@ -86,12 +89,7 @@ function initTasks() {
         $(list).addClass('myListId' + listId);
 
         // Add empty cells.
-        for (var j = 0; j < 10; j++) {
-            var task = $('<div class="task"></div>');
-            task.addClass('myListId' + listId)
-            task.draggable({ revert: "invalid" });
-            task.appendTo(list);
-        }
+        ensureTasksNumber(list[0]);
 
         // Setup typing handler.
         textField.bind('keypress', function (e) {
@@ -114,4 +112,3 @@ function initDates() {
 
 function initCalendar() {
 }
-
