@@ -18,8 +18,13 @@ function parseListId(e) {
 
 function addTask(text, list, backgroundColor) {
     var createDataControl = function(text) {
-        var result = $('<input type="checkbox"/>' + text + '<img src="img/delete_task.png"/><img src="img/edit_task.png"/><br>');
-        $(result).siblings('img').each(function() {
+        var result =
+            $('<input type="checkbox"/>'
+                + text
+                + '<img src="img/delete_task.png" class="action-delete"/>'
+                + '<img src="img/edit_task.png" class="action-edit"/>'
+                + '<br>');
+        $(result).siblings('img.action-delete').each(function() {
             $(this).click(function(e) {
                 removeTask($(this).parent('div.task'));
             })

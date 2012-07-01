@@ -153,7 +153,7 @@ div.task img {
     float: right;
 }
 
-div.task img:first-child {
+div.task img.action-edit {
     margin-left: 1em;
 }
 
