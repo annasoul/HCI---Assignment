@@ -157,7 +157,7 @@ div.task img {
     padding-top: 5px;
 }
 
-div.task img:first-child {
+div.task img.action-edit {
     margin-left: 1em;
 }
 
