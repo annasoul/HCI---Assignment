@@ -24,6 +24,11 @@ function addTask(text, list, backgroundColor) {
                 + '<img src="img/delete_task.png" class="action-delete"/>'
                 + '<img src="img/edit_task.png" class="action-edit"/>'
                 + '<br>');
+        $(result).siblings('img.action-edit').each(function() {
+            $(this).click(function(e) {
+                editTask($(this).parent('div.task'), e.pageX, e.pageY);
+            })
+        });
         $(result).siblings('img.action-delete').each(function() {
             $(this).click(function(e) {
                 removeTask($(this).parent('div.task'));
@@ -73,6 +78,34 @@ function addTask(text, list, backgroundColor) {
         }
         task.appendTo($(list));
     }
+}
+
+function editTask(task, clickX, clickY) {
+    var control = $("#task-details");
+
+    // Display control in a way that it's located in the middle of the click position if possible.
+    // Adjust its 'x' and 'y' coordinates if necessary.
+    var x = clickX  - control.width() / 2;
+    var xShift = x + control.width() - $(window).width();
+    if (x < 0) {
+        x = 20
+    }
+    else if (xShift > 0) {
+        x -= xShift + 20;
+    }
+
+    var y = clickY - control.height() / 2;
+    var yShift = y + control.height() - $(window).height();
+    if (y < 0) {
+        y = 20;
+    }
+    else if (yShift > 0) {
+        y -= yShift + 20;
+    }
+
+    control.css('left', x + 'px');
+    control.css('top', y + 'px');
+    control.css('display', 'block');
 }
 
 function removeTask(task) {

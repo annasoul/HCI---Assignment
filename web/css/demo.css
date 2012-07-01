@@ -206,3 +206,19 @@ div.task img.action-edit {
 .task-completed {
     text-decoration: line-through;
 }
+
+/* ----- Task details ------*/
+
+#task-details {
+    display: none;
+    min-height: 20em;
+    max-height: 20em;
+    min-width: 30em;
+    max-width: 30em;
+    border: 1px solid #ccc;
+    border-right-color: #666;
+    border-bottom-color: #666;
+    background-color: white;
+    z-index: 10;
+    position: absolute;
+}
