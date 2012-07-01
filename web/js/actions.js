@@ -52,7 +52,7 @@ function addTask(text, list, backgroundColor) {
 
     if (!added) {
         var task = $('<div class="task"></div>');
-        task.addClass(parseListId(list));
+        task.addClass(parseListId(list[0]));
         task.draggable({ revert: "invalid" });
         if (checkBox) {
             checkBox.appendTo(task);
@@ -132,7 +132,7 @@ function initTasks() {
         $(list).addClass('myListId' + listId);
 
         // Add empty cells.
-        ensureTasksNumber(list[0]);
+        ensureTasksNumber(list);
 
         // Setup typing handler.
         textField.bind('keypress', function (e) {
