@@ -18,8 +18,13 @@ function parseListId(e) {
 
 function addTask(text, list, backgroundColor) {
     var createDataControl = function(text) {
-        var checkBox = $('<input type="checkbox">' + text +'<br>');
-        checkBox.click(function(e) {
+        var result = $('<input type="checkbox"/>' + text + '<img src="img/delete_task.png"/><img src="img/edit_task.png"/><br>');
+        $(result).siblings('img').each(function() {
+            $(this).click(function(e) {
+                removeTask($(this).parent('div.task'));
+            })
+        });
+        result.click(function(e) {
             var clazz = 'task-completed';
             if (e.target.checked) {
                 $(e.target.parentElement).addClass(clazz);
@@ -28,7 +33,7 @@ function addTask(text, list, backgroundColor) {
                 $(e.target.parentElement).removeClass(clazz);
             }
         });
-        return checkBox;
+        return result;
     };
 
     var added = false;
@@ -63,6 +68,10 @@ function addTask(text, list, backgroundColor) {
         }
         task.appendTo($(list));
     }
+}
+
+function removeTask(task) {
+    $(task).remove();
 }
 
 function ensureTasksNumber(list) {

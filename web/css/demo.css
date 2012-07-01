@@ -142,6 +142,19 @@ td {
     width: 80%;
     min-height: 1.4em;
     border-bottom:dotted #949494 thin;
+    cursor: move;
+}
+
+div.task img {
+    min-height: 0.8em;
+    max-height: 0.8em;
+    margin-left: 0.5em;
+    cursor: pointer;
+    float: right;
+}
+
+div.task img:first-child {
+    margin-left: 1em;
 }
 
 #matrix-now {
