@@ -145,6 +145,10 @@ td {
     cursor: move;
 }
 
+.task:hover span {
+    font-weight: bold;
+}
+
 div.task img {
     min-height: 0.8em;
     max-height: 0.8em;
