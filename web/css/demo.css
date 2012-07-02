@@ -230,6 +230,7 @@ div.task img.action-edit {
 
 #task-name, #task-comment {
     width: 96%;
+    font-family: serif;
 }
 
 #task-comment-title {
@@ -241,6 +242,8 @@ div.task img.action-edit {
     padding-right:  2px;
 }
 
-#task-details-actions input {
+#task-details-actions img {
     float: right;
 }
+
+textarea{resize: none}
