@@ -17,7 +17,7 @@ function parseListId(e) {
     return null;
 }
 
-function addTask(text, list, backgroundColor) {
+function addTask(text, list, backgroundColor, comment) {
     var createDataControl = function(text) {
         var result =
             $('<input type="checkbox"/>'
@@ -61,6 +61,9 @@ function addTask(text, list, backgroundColor) {
                 if (backgroundColor) {
                     $(this).css('background-color', backgroundColor);
                 }
+                if (comment) {
+                    this.myComment = comment;
+                }
                 added = true;
             }
         });
@@ -73,6 +76,9 @@ function addTask(text, list, backgroundColor) {
         if (checkBox) {
             checkBox.appendTo(task);
             task.css('background-color', backgroundColor);
+            if (comment) {
+                task[0].myComment = comment;
+            }
         }
         else {
             task.draggable("option", "disabled", true);
@@ -153,15 +159,16 @@ function initDayDragAndDrop() {
         list.droppable({
             accept: 'div.task:not(.' + listId + ')',
             drop: function(event, ui) {
-                var sourceList = findList(ui.draggable[0]);
+                var task = ui.draggable;
+                var sourceList = findList(task[0]);
                 var destinationList = findList(event.target);
                 if (!destinationList) {
                     return;
                 }
-                addTask(ui.draggable.text(), destinationList, ui.draggable.css('background-color'));
+                addTask(task.text(), destinationList, task.css('background-color'), task[0].myComment);
                 $('.ui-draggable-dragging').hide();
 
-                ui.draggable.remove();
+                task.remove();
                 if (sourceList) {
                     ensureTasksNumber(sourceList);
                 }
