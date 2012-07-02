@@ -215,8 +215,8 @@ div.task img.action-edit {
 
 #task-details {
     display: none;
-    min-height: 15em;
-    max-height: 15em;
+    min-height: 17em;
+    max-height: 17em;
     min-width: 20em;
     max-width: 20em;
     border: 1px solid #ccc;
@@ -225,14 +225,15 @@ div.task img.action-edit {
     background-color: white;
     z-index: 10;
     position: absolute;
-    padding: 2%;
+    padding: 1%;
 }
 
-#task-details textarea, #task-name {
+#task-name, #task-comment {
     width: 96%;
-    max-height: 100%;
-    height: 100%;
-    min-height: 100%;
+}
+
+#task-comment-title {
+    margin-top: 0.5em;
 }
 
 #task-details-actions {
