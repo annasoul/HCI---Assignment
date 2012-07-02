@@ -4,6 +4,7 @@ $(document).ready(function () {
     initPriorityDragAndDrop();
     initCalendar();
     initDates();
+    initEditTaskActions();
 });
 
 function parseListId(e) {
@@ -20,13 +21,13 @@ function addTask(text, list, backgroundColor) {
     var createDataControl = function(text) {
         var result =
             $('<input type="checkbox"/>'
-                + text
+                + '<span>' + text + '</span>'
                 + '<img src="img/delete_task.png" class="action-delete"/>'
                 + '<img src="img/edit_task.png" class="action-edit"/>'
                 + '<br>');
         $(result).siblings('img.action-edit').each(function() {
             $(this).click(function(e) {
-                editTask($(this).parent('div.task'), e.pageX, e.pageY);
+                editTask($(this).parent('div.task'), $(this));
             })
         });
         $(result).siblings('img.action-delete').each(function() {
@@ -80,28 +81,41 @@ function addTask(text, list, backgroundColor) {
     }
 }
 
-function editTask(task, clickX, clickY) {
+/**
+ *
+ * @param task        jquery object
+ * @param editButton  jquery object
+ */
+function editTask(task, editButton) {
     var control = $("#task-details");
 
-    // Display control in a way that it's located in the middle of the click position if possible.
+    // Display control in a way that it's top right corner is located below the bottom right icon corner if possible.
     // Adjust its 'x' and 'y' coordinates if necessary.
-    var x = clickX  - control.width() / 2;
-    var xShift = x + control.width() - $(window).width();
-    if (x < 0) {
+    var x = editButton.offset().left + editButton.width() - control.outerWidth(true);
+    var xShift = x + control.outerWidth(true) - $(window).width();
+    if (xShift > 0) {
+        x -= xShift;
+    }
+    if (x < 20) {
         x = 20
     }
-    else if (xShift > 0) {
-        x -= xShift + 20;
-    }
 
-    var y = clickY - control.height() / 2;
+    var y = task.offset().top + task.height();
     var yShift = y + control.height() - $(window).height();
+    if (yShift > 0) {
+        y -= yShift - 20;
+    }
     if (y < 0) {
         y = 20;
     }
-    else if (yShift > 0) {
-        y -= yShift + 20;
+
+    $('#task-name').val($("span", task).text());
+    var comment = task[0].myComment;
+    if (!comment) {
+        comment = '';
     }
+    $('#task-comment').val(comment);
+    control[0].myTask = task;
 
     control.css('left', x + 'px');
     control.css('top', y + 'px');
@@ -201,4 +215,21 @@ function initDates() {
 }
 
 function initCalendar() {
+}
+
+function initEditTaskActions() {
+    $('#task-details-button-cancel').click(function(e) {
+        $('#task-details').css('display', 'none');
+    });
+
+    $('#task-details-button-ok').click(function(e) {
+        var editControl = $('#task-details');
+
+        // Save task name.
+        $('span', editControl[0].myTask).text($('#task-name').val());
+
+        // Save comment.
+        editControl[0].myTask[0].myComment = $('#task-comment').val();
+        editControl.css('display', 'none');
+    });
 }
