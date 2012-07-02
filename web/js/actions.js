@@ -9,9 +9,19 @@ $(document).ready(function () {
 });
 
 function initEscapeHandler() {
+    var control = $('#task-details');
+
+    // Cancel editing on 'click outside edit control'.
+    $(document).on('click', function (e) {
+        if ($(e.target).closest(control[0]).length === 0) {
+            control.css('display', 'none');
+        }
+    });
+
+    // Cancel editing on 'Escape'.
     $(document).on('keydown', function (e) {
         if (e.keyCode === 27) { // ESC
-            $('#task-details').css('display', 'none');
+            control.css('display', 'none');
         }
     });
 }
@@ -37,6 +47,7 @@ function addTask(text, list, backgroundColor, comment) {
         $(result).siblings('img.action-edit').each(function() {
             $(this).click(function(e) {
                 editTask($(this).parent('div.task'), $(this));
+                e.stopPropagation();
             })
         });
         $(result).siblings('img.action-delete').each(function() {
