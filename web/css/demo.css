@@ -230,11 +230,23 @@ div.task img.action-edit {
 
 #task-name, #task-comment {
     width: 96%;
-    font-family: serif;
+}
+
+#task-name{
+    font-weight: bolder;
+}
+
+#task-comment{
+    background-color: #fffcaf;
 }
 
 #task-comment-title {
     margin-top: 0.5em;
+    font-family: serif;
+}
+
+#task-name-title{
+    font-family: serif;
 }
 
 #task-details-actions {
