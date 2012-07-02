@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    initEscapeHandler();
     initTasks();
     initDayDragAndDrop();
     initPriorityDragAndDrop();
@@ -6,6 +7,14 @@ $(document).ready(function () {
     initDates();
     initEditTaskActions();
 });
+
+function initEscapeHandler() {
+    $(document).on('keydown', function (e) {
+        if (e.keyCode === 27) { // ESC
+            $('#task-details').css('display', 'none');
+        }
+    });
+}
 
 function parseListId(e) {
     var classes = e.className.split(' ');
