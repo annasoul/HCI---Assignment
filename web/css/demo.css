@@ -145,6 +145,10 @@ td {
     cursor: move;
 }
 
+.delegated {
+    font-style: italic;
+}
+
 .task:hover span {
     font-weight: bold;
 }

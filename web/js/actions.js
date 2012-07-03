@@ -318,6 +318,7 @@ function initDelegateTaskActions() {
         var assignee = $('#task-delegate select option:selected').text();
         $('#notification').empty();
         var task = $('#task-delegate')[0].myTask;
+        task.addClass('delegated');
         $('#notification').append('Success! Following task is done by ' + assignee + ':<br/>' + task.text());
 
         var notificationShownCallback = function() {
