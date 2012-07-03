@@ -147,6 +147,7 @@ function editTask(task, editButton) {
     control.css('left', x + 'px');
     control.css('top', y + 'px');
     control.css('display', 'block');
+    $('#task-name').css('background-color', task.css('background-color'));
 }
 
 function removeTask(task) {
