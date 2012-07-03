@@ -42,6 +42,7 @@ function addTask(text, list, backgroundColor, comment) {
             $('<input type="checkbox"/>'
                 + '<span>' + text + '</span>'
                 + '<img src="img/delete_task.png" class="action-delete"/>'
+                + '<img src="img/delegate.png" class="action-delegate"/>'
                 + '<img src="img/edit_task.png" class="action-edit"/>'
                 + '<br>');
         $(result).siblings('img.action-edit').each(function() {
