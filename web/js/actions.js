@@ -6,10 +6,9 @@ var config = {
 
 $(document).ready(function () {
     initEscapeHandler();
-    initTasks();
+    initDays();
     initDayDragAndDrop();
     initPriorityDragAndDrop();
-    initCalendar();
     initDates();
     initEditTaskActions();
     initDelegateTaskActions();
@@ -260,9 +259,45 @@ function initPriorityDragAndDrop() {
     });
 }
 
-function initTasks() {
+function initDays() {
     $('div.day').each(function (listId) {
-        var textField = $('input', this);
+        // Init calendar.
+        var calendar = $('input.calendar', this);
+        if (calendar) {
+            calendar.datepicker({
+                showOn:"button",
+                buttonImage:"img/calendar.png",
+                buttonImageOnly: true,
+                dateFormat: 'MM dd, yy',
+                onSelect: function(dateText, inst) {
+                    var day = $(this).closest('div.day');
+
+                    // Day of week.
+                    var dayOfWeekText;
+                    if (Date.today().toString('MMMM dd, yyyy') == dateText) {
+                        dayOfWeekText = 'Today';
+                    }
+                    else {
+                        dayOfWeekText = Date.today().set({
+                            day: parseInt(inst.currentDay),
+                            month: parseInt(inst.currentMonth),
+                            year: parseInt(inst.currentYear)
+                        }).toString('dddd');
+                    }
+                    var dayOfWeek = $('div.week-day', day);
+                    dayOfWeek.empty();
+                    dayOfWeek.append(dayOfWeekText);
+
+                    // Date
+                    var date = $('div.date', day);
+                    date.empty();
+                    date.append(dateText);
+                }
+            });
+        }
+
+        // Init tasks.
+        var textField = $('input.new-task-name', this);
         var list = $('div.list', this);
         $(list).addClass('myListId' + listId);
 
@@ -286,9 +321,6 @@ function initDates() {
     $('#today-date')[0].innerHTML = Date.today().toString(format);
     $('#tomorrow-date')[0].innerHTML = tomorrow.toString(format);
     $('#tomorrow-week-date')[0].innerHTML = tomorrow.toString('dddd');
-}
-
-function initCalendar() {
 }
 
 function initEditTaskActions() {

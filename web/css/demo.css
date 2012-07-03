@@ -79,12 +79,12 @@ html, body {
     margin-top: 1px;
 }
 
-table {
+#matrix table {
     width: 21em;
     height: 21em;
 }
 
-td {
+#matrix td {
     width: 10em;
     height: 10em;
     font-family: sans-serif;
