@@ -285,3 +285,19 @@ textarea{resize: none}
 #task-delegate-target, #task-delegate input {
     width: 100%;
 }
+
+#notification {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    border: 1px solid #ccc;
+    border-right-color: #666;
+    border-bottom-color: #666;
+    background-color: #bbefbb;
+    min-width: 20em;
+    max-width: 20em;
+    min-height: 3em;
+    max-height: 3em;
+    display: none;
+    padding: 5px;
+}

@@ -1,3 +1,8 @@
+var config = {
+    notificationDelayMillis: 1000,
+    notificationFadeDurationMillis: 1000
+};
+
 $(document).ready(function () {
     initEscapeHandler();
     initTasks();
@@ -6,15 +11,17 @@ $(document).ready(function () {
     initCalendar();
     initDates();
     initEditTaskActions();
+    initDelegateTaskActions();
 });
 
 function closePopups() {
     $('#task-details').css('display', 'none');
     $('#task-delegate').css('display', 'none');
+    $('#notification').css('display', 'none');
 }
 
 function initEscapeHandler() {
-    var controls = [ $('#task-details'), $('#task-delegate') ];
+    var controls = [ $('#task-details'), $('#task-delegate'), $('#notification') ];
 
     // Cancel editing on 'click outside edit control'.
     $(document).on('click', function (e) {
@@ -132,7 +139,6 @@ function addTask(text, list, backgroundColor, comment) {
 function delegateTask(task, delegateButton) {
     var control = showControl(task, delegateButton, 'task-delegate');
     $('#task-delegate-name').val($("span", task).text());
-    control[0].myTask = task;
     $('#task-delegate-name').css('background-color', task.css('background-color'));
 }
 
@@ -149,7 +155,6 @@ function editTask(task, editButton) {
         comment = '';
     }
     $('#task-comment').val(comment);
-    control[0].myTask = task;
     $('#task-name').css('background-color', task.css('background-color'));
 }
 
@@ -182,6 +187,7 @@ function showControl(task, button, controlId) {
         y = 20;
     }
 
+    control[0].myTask = task;
     control.css('left', x + 'px');
     control.css('top', y + 'px');
     control.css('display', 'block');
@@ -298,5 +304,22 @@ function initEditTaskActions() {
         // Save comment.
         editControl[0].myTask[0].myComment = $('#task-comment').val();
         editControl.css('display', 'none');
+    });
+}
+
+function initDelegateTaskActions() {
+    $('#task-delegate-button-cancel').click(function(e) {
+        $('#task-delegate').css('display', 'none');
+    });
+
+    $('#task-delegate-button-ok').click(function(e) {
+        e.stopPropagation();
+        var assignee = $('#task-delegate select option:selected').text();
+        $('#notification').empty();
+        $('#notification').append('Success! Following task is done by ' + assignee + ':<br/>'
+            + $('#task-delegate')[0].myTask.text());
+        $('#notification').delay(config.notificationDelayMillis).fadeIn(config.notificationFadeDurationMillis)
+            .delay(config.notificationDelayMillis * 3).fadeOut(config.notificationFadeDurationMillis);
+        $('#task-delegate').css('display', 'none');
     });
 }
