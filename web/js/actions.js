@@ -1,6 +1,6 @@
 var config = {
-    notificationDelayMillis: 1000,
-    notificationFadeDurationMillis: 1000
+    notificationDelayMillis: 2000,
+    notificationFadeDurationMillis:2000
 };
 
 $(document).ready(function () {

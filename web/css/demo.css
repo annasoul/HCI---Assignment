@@ -284,6 +284,7 @@ textarea{resize: none}
 
 #task-delegate-target, #task-delegate input {
     width: 100%;
+    font-family: serif;
 }
 
 #notification {
