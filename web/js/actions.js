@@ -1,6 +1,7 @@
 var config = {
     notificationDelayMillis: 2000,
-    notificationFadeDurationMillis:2000
+    notificationFadeDurationMillis: 2000,
+    notificationTimeToLiveMillis: 3000
 };
 
 $(document).ready(function () {
@@ -316,10 +317,18 @@ function initDelegateTaskActions() {
         e.stopPropagation();
         var assignee = $('#task-delegate select option:selected').text();
         $('#notification').empty();
-        $('#notification').append('Success! Following task is done by ' + assignee + ':<br/>'
-            + $('#task-delegate')[0].myTask.text());
-        $('#notification').delay(config.notificationDelayMillis).fadeIn(config.notificationFadeDurationMillis)
-            .delay(config.notificationDelayMillis * 3).fadeOut(config.notificationFadeDurationMillis);
+        var task = $('#task-delegate')[0].myTask;
+        $('#notification').append('Success! Following task is done by ' + assignee + ':<br/>' + task.text());
+
+        var notificationShownCallback = function() {
+            task.addClass('task-completed');
+            $('input', task).attr('checked', true);
+        };
+
+        $('#notification').delay(config.notificationDelayMillis)
+                          .fadeIn(config.notificationFadeDurationMillis, notificationShownCallback)
+                          .delay(config.notificationTimeToLiveMillis)
+                          .fadeOut(config.notificationFadeDurationMillis);
         $('#task-delegate').css('display', 'none');
     });
 }
