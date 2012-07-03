@@ -316,18 +316,35 @@ function initDelegateTaskActions() {
     $('#task-delegate-button-ok').click(function(e) {
         e.stopPropagation();
         var assignee = $('#task-delegate select option:selected').text();
-        $('#notification').empty();
         var task = $('#task-delegate')[0].myTask;
         task.addClass('delegated');
-        $('#notification').append('Success! Following task is done by ' + assignee + ':<br/>' + task.text());
 
-        var notificationShownCallback = function() {
+        var queuedText = 'Task ' + task.text() + ' is accepted by ' + assignee;
+        var successText = 'Success! Following task is done by ' + assignee + ':<br/>' + task.text();
+
+        $('#notification').empty();
+        $('#notification').append(queuedText);
+        $('#notification').addClass('notification-queued');
+        $('#notification').removeClass('notification-complete');
+
+        var afterQueuedCallback = function() {
+            $('#notification').empty();
+            $('#notification').append(successText);
+            $('#notification').removeClass('notification-queued');
+            $('#notification').addClass('notification-complete');
+        };
+
+        var afterCompletedCallback = function() {
             task.addClass('task-completed');
             $('input', task).attr('checked', true);
         };
 
         $('#notification').delay(config.notificationDelayMillis)
-                          .fadeIn(config.notificationFadeDurationMillis, notificationShownCallback)
+                          .fadeIn(config.notificationFadeDurationMillis)
+                          .delay(config.notificationTimeToLiveMillis)
+                          .fadeOut(config.notificationFadeDurationMillis, afterQueuedCallback)
+                          .delay(config.notificationDelayMillis)
+                          .fadeIn(config.notificationFadeDurationMillis, afterCompletedCallback)
                           .delay(config.notificationTimeToLiveMillis)
                           .fadeOut(config.notificationFadeDurationMillis);
         $('#task-delegate').css('display', 'none');

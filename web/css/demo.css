@@ -298,11 +298,19 @@ textarea{resize: none}
     border: 1px solid #ccc;
     border-right-color: #666;
     border-bottom-color: #666;
-    background-color: #bbefbb;
+
     min-width: 20em;
     max-width: 20em;
     min-height: 3em;
     max-height: 3em;
     display: none;
     padding: 5px;
+}
+
+.notification-queued {
+    background-color: #fffcaf;
+}
+
+.notification-complete {
+    background-color: #bbefbb;
 }
