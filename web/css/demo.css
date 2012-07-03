@@ -161,8 +161,8 @@ div.task img {
     padding-top: 5px;
 }
 
-div.task img.action-edit {
-    margin-left: 1em;
+div.task img {
+    margin-left: 0.5em;
 }
 
 #matrix-now {
@@ -213,12 +213,8 @@ div.task img.action-edit {
 
 /* ----- Task details ------*/
 
-#task-details {
+#task-details, #task-delegate {
     display: none;
-    min-height: 17em;
-    max-height: 17em;
-    min-width: 20em;
-    max-width: 20em;
     border: 1px solid #ccc;
     border-right-color: #666;
     border-bottom-color: #666;
@@ -226,6 +222,20 @@ div.task img.action-edit {
     z-index: 10;
     position: absolute;
     padding: 1%;
+}
+
+#task-details {
+    min-height: 17em;
+    max-height: 17em;
+    min-width: 20em;
+    max-width: 20em;
+}
+
+#task-delegate {
+    min-height: 7em;
+    max-height: 7em;
+    min-width: 10em;
+    max-width: 10em;
 }
 
 #task-name, #task-comment {
@@ -249,13 +259,29 @@ div.task img.action-edit {
     font-family: serif;
 }
 
-#task-details-actions {
+#task-details-actions, #task-delegate-actions {
     padding-top:  0.5em;
     padding-right:  2px;
 }
 
-#task-details-actions img {
+#task-details-actions img, #task-delegate img {
     float: right;
 }
 
+#task-details-actions img:hover, #task-delegate-actions img:hover {
+    cursor: pointer;
+}
+
 textarea{resize: none}
+
+#task-delegate {
+    display: none;
+}
+
+#task-delegate-name {
+    margin-bottom: 0.5em;
+}
+
+#task-delegate-target, #task-delegate input {
+    width: 100%;
+}

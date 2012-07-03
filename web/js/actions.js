@@ -8,21 +8,29 @@ $(document).ready(function () {
     initEditTaskActions();
 });
 
+function closePopups() {
+    $('#task-details').css('display', 'none');
+    $('#task-delegate').css('display', 'none');
+}
+
 function initEscapeHandler() {
-    var control = $('#task-details');
+    var controls = [ $('#task-details'), $('#task-delegate') ];
 
     // Cancel editing on 'click outside edit control'.
     $(document).on('click', function (e) {
-        if ($(e.target).closest(control[0]).length === 0) {
-            control.css('display', 'none');
+        for (var i in controls) {
+            if ($(e.target).closest(controls[i][0]).length === 0) {
+                controls[i].css('display', 'none');
+            }
         }
     });
 
     // Cancel editing on 'Escape'.
     $(document).on('keydown', function (e) {
-        if (e.keyCode === 27) { // ESC
-            control.css('display', 'none');
+        if (e.keyCode !== 27) { // ESC
+            return
         }
+        closePopups();
     });
 }
 
@@ -45,15 +53,23 @@ function addTask(text, list, backgroundColor, comment) {
                 + '<img src="img/delegate.png" class="action-delegate"/>'
                 + '<img src="img/edit_task.png" class="action-edit"/>'
                 + '<br>');
-        $(result).siblings('img.action-edit').each(function() {
-            $(this).click(function(e) {
-                editTask($(this).parent('div.task'), $(this));
-                e.stopPropagation();
-            })
-        });
         $(result).siblings('img.action-delete').each(function() {
             $(this).click(function(e) {
                 removeTask($(this).parent('div.task'));
+            })
+        });
+        $(result).siblings('img.action-delegate').each(function() {
+            $(this).click(function(e) {
+                closePopups();
+                delegateTask($(this).parent('div.task'), $(this));
+                e.stopPropagation();
+            })
+        });
+        $(result).siblings('img.action-edit').each(function() {
+            $(this).click(function(e) {
+                closePopups();
+                editTask($(this).parent('div.task'), $(this));
+                e.stopPropagation();
             })
         });
         result.click(function(e) {
@@ -110,15 +126,45 @@ function addTask(text, list, backgroundColor, comment) {
 
 /**
  *
+ * @param task            jquery object
+ * @param delegateButton  jquery object
+ */
+function delegateTask(task, delegateButton) {
+    var control = showControl(task, delegateButton, 'task-delegate');
+    $('#task-delegate-name').val($("span", task).text());
+    control[0].myTask = task;
+    $('#task-delegate-name').css('background-color', task.css('background-color'));
+}
+
+/**
+ *
  * @param task        jquery object
  * @param editButton  jquery object
  */
 function editTask(task, editButton) {
-    var control = $("#task-details");
+    var control = showControl(task, editButton, 'task-details');
+    $('#task-name').val($("span", task).text());
+    var comment = task[0].myComment;
+    if (!comment) {
+        comment = '';
+    }
+    $('#task-comment').val(comment);
+    control[0].myTask = task;
+    $('#task-name').css('background-color', task.css('background-color'));
+}
+
+/**
+ *
+ * @param task    jquery object
+ * @param button  jquery object
+ * @return        jquery wrapper for the control object
+ */
+function showControl(task, button, controlId) {
+    var control = $('#' + controlId);
 
     // Display control in a way that it's top right corner is located below the bottom right icon corner if possible.
     // Adjust its 'x' and 'y' coordinates if necessary.
-    var x = editButton.offset().left + editButton.width() - control.outerWidth(true);
+    var x = button.offset().left + button.width() - control.outerWidth(true);
     var xShift = x + control.outerWidth(true) - $(window).width();
     if (xShift > 0) {
         x -= xShift;
@@ -136,18 +182,10 @@ function editTask(task, editButton) {
         y = 20;
     }
 
-    $('#task-name').val($("span", task).text());
-    var comment = task[0].myComment;
-    if (!comment) {
-        comment = '';
-    }
-    $('#task-comment').val(comment);
-    control[0].myTask = task;
-
     control.css('left', x + 'px');
     control.css('top', y + 'px');
     control.css('display', 'block');
-    $('#task-name').css('background-color', task.css('background-color'));
+    return control;
 }
 
 function removeTask(task) {
