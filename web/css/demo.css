@@ -150,8 +150,8 @@ td {
 }
 
 div.task img {
-    min-height: 0.8em;
-    max-height: 0.8em;
+    min-height: 1em;
+    max-height: 1em;
     cursor: pointer;
     float: right;
     display: block;
